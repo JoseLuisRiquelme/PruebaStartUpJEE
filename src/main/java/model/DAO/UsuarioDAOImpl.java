@@ -39,7 +39,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			 * u.getCorreo() + "','" + u.getNick() + "','" + u.getNombre() + "','" +
 			 * u.getPassword() + "'," + u.getPeso() + ")";
 			 */
-			System.out.println(u.toString());
+			/*System.out.println(u.toString());*/
 			/*
 			 * String query =
 			 * "SELECT insert_usuario_con_rol('"+u.getCorreo()+"', '"+u.getNick()+"', '"+
@@ -178,21 +178,22 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Connection c = Conexion.getCon();
 			Statement s = c.createStatement();
 			String query = "select rol_id from roles_usuarios where usuario_id=" + id;
+			 System.out.println("Executing query: " + query);
 			ResultSet rs = s.executeQuery(query);
 			
 			if(rs.next()) {
-				System.out.println(rs.getInt("rol_id"));
 			 rol = rs.getInt("rol_id");
-			
-
-			}
+			 System.out.println("Found rol_id: " + rol);
+			}else {
+	            System.out.println("No rol_id found for usuario_id: " + id);
+	        }
 
 		} catch (SQLException e) {
 			System.out.println("ERROR en el metodo List readR");
 			e.printStackTrace();
 		}
-		System.out.println(rol);
-
+		
+		System.out.println("Returning rol: " + rol);
 		return rol;
 
 	}

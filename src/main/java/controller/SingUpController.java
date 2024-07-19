@@ -52,20 +52,20 @@ public class SingUpController extends HttpServlet {
 				getServletContext().getRequestDispatcher("/views/userAlreadyExist.jsp").forward(request, response);
 			} else if (uRSU.getId() == 0 && u.getRolId() == 1) {
 				List<Proveedor> proveedores = uDAO.readP();
-				for (Proveedor p : proveedores) {
+				/*for (Proveedor p : proveedores) {
 					System.out.println(p.toString());
-				}
+				}*/
 				;
 				request.setAttribute("proveedores", proveedores);
 				uDAO.create(u);
-				List<Integer> idies = new ArrayList<>();
-				List<Direccion> direcciones = uDAO.readD();
-				for (Direccion d : direcciones) {
+				/*List<Integer> idies = new ArrayList<>();
+				List<Direccion> direcciones = uDAO.readD();*/
+				/*for (Direccion d : direcciones) {
 					int id = d.getUsuarioId();
 
 					idies.add(id);
-				}
-				System.out.println(idies);
+				}*/
+				/*System.out.println(idies);*/
 				/*List<Usuario> usuarios = new ArrayList<>();
 				Usuario us = new Usuario();
 				for (int id : idies) {
