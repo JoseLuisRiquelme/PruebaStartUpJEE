@@ -162,8 +162,12 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;*/
 
---DROP FUNCTION insert_usuario_con_rol(character varying,character varying,character varying,character varying,integer,integer,character varying,character varying)
+/*======================FUNCTION insert_usuario_con_rol===============================*/
+--==>>> USE ESTA FUNCION (esta repetida anteriormente pero esta fue la ultima iteracion)<<<==
 
+--Primero se dropea la existente con query de la linea 170 (DROP FUNCTION insert_usuarios_con_rol....)
+
+--DROP FUNCTION insert_usuario_con_rol(character varying,character varying,character varying,character varying,integer,integer,character varying,character varying)
 
 /*CREATE OR REPLACE FUNCTION insert_usuario_con_rol(
     p_correo VARCHAR,
@@ -194,6 +198,29 @@ BEGIN
     VALUES (p_direccion_nombre, p_direccion_numeracion, usuario_id);
 END;
 $$ LANGUAGE plpgsql;*/
+/*===========================Fin===================================*/
+
+/*=======================Funcion y trigger===================================*/
+--==>>> Tambien me di cuenta que me habia faltado agregar en este archivo .sql)
+--==>>> la funcion  y el trigger que cree para agregar los 'uduario_id' y 'rol_id'
+--==>>> de forma automatica a la tabla 'roles_usuarios' al agregar un 'usuario' a la tabla 'usuarios' )
+
+--Funcion--
+/*CREATE OR REPLACE FUNCTION insertar_en_roles_usuarios() 
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO roles_usuarios (usuario_id, rol_id) 
+    VALUES (NEW.id, NEW.rol_id);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;*/
+--Trigger--
+/*CREATE TRIGGER after_insert_usuario
+AFTER INSERT ON usuarios
+FOR EACH ROW
+EXECUTE FUNCTION insertar_en_roles_usuarios();*/
+
+/*============================Fin====================================*/
 
 --select *from usuarios;
 --select * from direcciones;
